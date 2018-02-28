@@ -302,7 +302,11 @@ function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, mo
     if a:clicks == 1 && a:modifiers !~# '[^ ]'
       if a:button is# 'l'
         " left button - switch to buffer
-        silent execute 'buffer' a:minwid
+  
+        " Only if not a NERDTree buffer
+        if !exists("b:NERDTree") || !b:NERDTree.isTabTree()
+          silent execute 'buffer' a:minwid
+        endif
       elseif a:button is# 'm'
         " middle button - delete buffer
 
